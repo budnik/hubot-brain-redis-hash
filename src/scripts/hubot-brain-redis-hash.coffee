@@ -81,9 +81,7 @@ module.exports = (robot) ->
   @
 
 module.exports.createClient = () ->
-  info   = Url.parse process.env.REDISTOGO_URL || process.env.BOXEN_REDIS_URL || 'redis://localhost:6379'
-  client = Redis.createClient(info.port, info.hostname)
+  info = JSON.parse(process.env.VCAP_SERVICES)['redis-2.6'][0].credentials;
+  client = Redis.createClient(info.port, info.hostname, {auth_pass: info.password})
 
-  if info.auth
-    client.auth info.auth.split(":")[1]
   return client
