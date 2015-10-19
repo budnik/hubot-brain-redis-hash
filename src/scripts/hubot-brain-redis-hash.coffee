@@ -81,7 +81,7 @@ module.exports = (robot) ->
   @
 
 module.exports.createClient = () ->
-  info = JSON.parse(process.env.VCAP_SERVICES)['redis-2.6'][0].credentials;
+  info = JSON.parse(process.env.VCAP_SERVICES)['rediscloud'][0].credentials;
   client = Redis.createClient(info.port, info.hostname, {auth_pass: info.password})
 
   return client
